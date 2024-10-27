@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout details</title>
+</head>
+<body>
+    <h1>Workout</h1>
+    <p><span th:text="${workout.date}">Date of workout</span></p>
+    <p>Location: <span th:text="${workout.location}"></span></p>
+    <p>Notes: <span th:text="${workout.notes}"></span></p>
+
+    <h2>Individual climbs</h2>
+    <!-- <input type="submit" value="Add new climb" /> -->
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>Grade</th>
+            <th>Notes</th>
+        </tr>
+        <tr th:each="climb: ${climbs}">
+            <td th:text="${climb.type}"></td>
+            <td th:text="${climb.grade}"></td>
+            <td th:text="${climb.notes}"></td>
+        </tr>
+    </table>
+    <td> <a th:href="@{/details/{workoutid}/addclimb(workoutid=${workout.workoutid})}">Add new climb</a></td>
+
+</body>
+</html>

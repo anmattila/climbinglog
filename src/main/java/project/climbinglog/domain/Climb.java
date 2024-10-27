@@ -1,5 +1,8 @@
 package project.climbinglog.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,25 +16,28 @@ public class Climb {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
+    @Column(name = "climbid", unique = true)
     private Long climbid;
     private String type;
     private String grade;
-    private String place;
-    
+    private String notes;
+
     @ManyToOne
+    @JsonIgnoreProperties ("workout")
     @JoinColumn(name = "workoutid")
-    private Workout workout; 
-    
+    // nullable = false saa kaatumaan
+    private Workout workout;
+
     public Climb() {
     }
-    
-    public Climb(String type, String grade, String place) {
+
+    public Climb(String type, String grade, String notes) {
         super();
         this.type = type;
         this.grade = grade;
-        this.place = place;
+        this.notes = notes;
     }
-    
+
     public void setClimbid(Long climbid) {
         this.climbid = climbid;
     }
@@ -56,25 +62,25 @@ public class Climb {
         this.grade = grade;
     }
 
-    public String getPlace() {
-        return place;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     @Override
     public String toString() {
-        return "Climb [climbid=" + climbid + ", type=" + type + ", grade=" + grade + ", place=" + place + "]";
+        return "Climb [climbid=" + climbid + ", type=" + type + ", grade=" + grade + ", notes=" + notes + "]";
     }
 
-    public Workout getWorkouts() {
+    public Workout getWorkout() {
         return workout;
     }
 
-    public void setWorkouts(Workout workouts) {
-        this.workout = workouts;
+    public void setWorkout(Workout workout) {
+        this.workout = workout;
     }
     
 }

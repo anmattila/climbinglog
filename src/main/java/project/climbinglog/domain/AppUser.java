@@ -2,7 +2,10 @@ package project.climbinglog.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,44 +13,42 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class User {
+public class AppUser {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 
-    private Long userid;
-    private String name;
+    @Column(nullable = false, unique = true)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
     private String username;
+
+    @Column(nullable = false, unique = true)
     private String passwordHash;
+    
     private String role;
 
     // user can have many workouts
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Workout> workouts;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    //@JsonIgnoreProperties("workouts")
+    //private List<Workout> workouts;
     
-    public User() {
+    public AppUser() {
     }
 
-    public User(String name, String username) {
+    public AppUser(String username, String passwordhash) {
         super();
-        this.name = name;
         this.username = username;
+        this.passwordHash = passwordhash;
     }
 
-    public Long getUserid() {
-        return userid;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserid(Long userid) {
-        this.userid = userid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -74,12 +75,11 @@ public class User {
         this.role = role;
     }
 
-    @Override
+/*  @Override
     public String toString() {
-        return "User [userid=" + userid + ", name=" + name + ", username=" + username + ", passwordHash=" + passwordHash
-                + ", role=" + role + ", workouts=" + workouts + "]";
+        return "User [id=" + id + ", username=" + username + ", passwordHash=" + passwordHash
+                + ", role=" + role + "]";
     }
-
     public List<Workout> getWorkouts() {
         return workouts;
     }
@@ -87,6 +87,7 @@ public class User {
     public void setWorkouts(List<Workout> workouts) {
         this.workouts = workouts;
     }
+*/
      
 }
 

@@ -1,10 +1,14 @@
 package project.climbinglog.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,27 +24,32 @@ public class Workout {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @DateTimeFormat(pattern = "dd.MM.yyyy")
 
+    @Column(unique = true)
     private Long workoutid;
-    private Date date;
+    private LocalDate date;
     private String location;
+    private String place;
     private String notes;
 
-
-    // 1 workout has only 1 user, userid foreign key
+/*   // 1 workout has only 1 user, userid foreign key
     @ManyToOne 
-    @JoinColumn(name = "userid") 
-    private User user;
+    @JsonIgnoreProperties("user")
+    @JoinColumn(name = "user_id", nullable = false) 
+    private AppUser user;
+*/
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "workout")
-    private List<Climb> climbs;
+    //@JsonIgnoreProperties("workouts")
+    private List<Climb> climbs = new ArrayList<>();
 
     public Workout() {
     }
 
-    public Workout(Date date, String location, String notes) {
+    public Workout(LocalDate date, String location, String place, String notes) {
         super();
         this.date = date;
         this.location = location;
+        this.place = place;
         this.notes = notes;
     }
 
@@ -52,11 +61,11 @@ public class Workout {
         this.workoutid = workoutid;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -66,6 +75,14 @@ public class Workout {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
     }
 
     public String getNotes() {
@@ -78,16 +95,17 @@ public class Workout {
 
     @Override
     public String toString() {
-        return "Workout [workoutid=" + workoutid + ", date=" + date + ", location=" + location + ", notes=" + notes + "]";
+        return "Workout [workoutid=" + workoutid + ", date=" + date + ", location=" + location + ", place=" + place + ", notes=" + notes + "]";
     }
 
-    public User getUser() {
+/*   public AppUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(AppUser user) {
         this.user = user;
     }
+*/
 
     public List<Climb> getClimbs() {
         return climbs;
@@ -97,4 +115,11 @@ public class Workout {
         this.climbs = climbs;
     }
 
+    // varmistaa että kiipeily lisätään treenissä olevaan listaan kiipeilystä 
+    // ja kiipeily tietää mihin treeniin se kuuluu
+    public void addClimb(Climb climb) {
+        climbs.add(climb);              
+        climb.setWorkout(this); 
+
+    } 
 }

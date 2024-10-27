@@ -1,7 +1,6 @@
 package project.climbinglog;
 
-import java.text.SimpleDateFormat;
-
+import java.time.LocalDate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,20 +22,19 @@ public class ClimbinglogApplication {
 	public CommandLineRunner logdemo(WorkoutRepository reposWorkout, ClimbRepository reposClimb) {
 		return (args) -> {
 
-			SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
+			//SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy");
+			Workout demoW1 = new Workout(LocalDate.of(2024,10,23), "Ristikko", "indoors", "versitale session");
 			
-			Climb demoC1 = new Climb("boulder", "5", "indoors");
-			Climb demoC2 = new Climb("top rope", "7A", "indoors");
-			reposClimb.save(demoC1);
-			reposClimb.save(demoC2);
-
-			Workout demoW1 = new Workout(dateformat.parse("23.10.2024"), "Ristikko", "versitale session");
+			Climb demoC1 = new Climb("boulder", "5", "");
+			Climb demoC2 = new Climb("top rope", "7A", "");
+			
+			demoW1.addClimb(demoC1);
+			demoW1.addClimb(demoC2);
 			reposWorkout.save(demoW1);
-
+					
 			for (Climb climb : reposClimb.findAll()) {
 				System.out.println(climb.toString());
 			}
-
 			for (Workout workout : reposWorkout.findAll()) {
 				System.out.println(workout.toString());
 			}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout list</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Notes</th>
+            <th>Number of climbs</th>
+        </tr>
+        <tr th:each="workout: ${workouts}">
+            <td th:text="${workout.date}"></td>
+            <td th:text="${workout.location}"></td>
+            <td th:text="${workout.place}"></td>
+            <td th:text="${workout.notes}"></td>
+            <!-- <td th:text=""></td> -->
+            <td> <a th:href="@{/details/{workoutid}(workoutid=${workout.workoutid})}">Details</a></td>
+            <td> <a th:href="@{/details/{workoutid}/addclimb(workoutid=${workout.workoutid})}">Add new climb</a></td>
+
+        </tr>
+    </table>
+    <a href="/addworkout">Add new workout</a>    
+</body>
+</html>
