@@ -5,7 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
+//import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,29 +18,30 @@ public class AppUser {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 
-    @Column(nullable = false, unique = true)
+   // @Column(nullable = false, unique = true)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    //@Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false, unique = true)
+    //@Column(nullable = false, unique = true)
     private String passwordHash;
     
     private String role;
 
     // user can have many workouts
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    //@JsonIgnoreProperties("workouts")
-    //private List<Workout> workouts;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnoreProperties("appuser")
+    private List<Workout> workouts;
     
     public AppUser() {
     }
 
-    public AppUser(String username, String passwordhash) {
+    public AppUser(String username, String passwordhash, String role) {
         super();
         this.username = username;
         this.passwordHash = passwordhash;
+        this.role = role;
     }
 
     public Long getId() {
@@ -75,7 +76,7 @@ public class AppUser {
         this.role = role;
     }
 
-/*  @Override
+    @Override
     public String toString() {
         return "User [id=" + id + ", username=" + username + ", passwordHash=" + passwordHash
                 + ", role=" + role + "]";
@@ -87,7 +88,6 @@ public class AppUser {
     public void setWorkouts(List<Workout> workouts) {
         this.workouts = workouts;
     }
-*/
      
 }
 

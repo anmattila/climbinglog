@@ -18,12 +18,12 @@ public class Climb {
 
     @Column(name = "climbid", unique = true)
     private Long climbid;
-    private String type;
+    private Type type;
     private String grade;
     private String notes;
 
     @ManyToOne
-    @JsonIgnoreProperties ("workout")
+    @JsonIgnoreProperties("climb")
     @JoinColumn(name = "workoutid")
     // nullable = false saa kaatumaan
     private Workout workout;
@@ -31,7 +31,7 @@ public class Climb {
     public Climb() {
     }
 
-    public Climb(String type, String grade, String notes) {
+    public Climb(Type type, String grade, String notes) {
         super();
         this.type = type;
         this.grade = grade;
@@ -46,11 +46,11 @@ public class Climb {
         return climbid;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
@@ -82,5 +82,5 @@ public class Climb {
     public void setWorkout(Workout workout) {
         this.workout = workout;
     }
-    
+
 }

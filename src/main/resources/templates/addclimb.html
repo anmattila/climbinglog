@@ -4,17 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <title>Add climb to workout</title>
 </head>
 
 <body>
+    <header>
+        <div th:replace="fragments/materialize :: navbar"></div>
+    </header>
     <h3>Add new climb</h3>
     <div>
-        <form th:action="@{/details/{workoutid}/saveclimb(workoutid=${workout.workoutid})}" th:object="${climb}" action="#"
-            method="post">
+        <form th:action="@{/details/{workoutid}/saveclimb(workoutid=${workout.workoutid})}" 
+            th:object="${climb}" action="#" method="post">
+            <!-- <input type="hidden" th:value="${workoutid}" name="workoutid" /> -->
 
+            <!-- *type sitoo type to climb, loop enum, shows values and text -->
             <label for="type">Type</label>
-            <input type="text" id="type" th:field="*{type}" required />
+            <select id="type" th:field="*{type}" class="form-control"> 
+                <option value="">Select type</option>
+                <option th:each="type : ${types}"
+                    th:value="${type}"
+                    th:text="${type}">
+                </option>
+            </select>
             <br>
             <label for="grade">Grade</label>
             <input type="text" id="grade" th:field="*{grade}" required />

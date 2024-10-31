@@ -31,15 +31,15 @@ public class Workout {
     private String place;
     private String notes;
 
-/*   // 1 workout has only 1 user, userid foreign key
+    // 1 workout has only 1 user, userid foreign key
     @ManyToOne 
-    @JsonIgnoreProperties("user")
-    @JoinColumn(name = "user_id", nullable = false) 
+    @JsonIgnoreProperties("workouts")
+    @JoinColumn(name = "userid") 
     private AppUser user;
-*/
+
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "workout")
-    //@JsonIgnoreProperties("workouts")
+    @JsonIgnoreProperties("workout")
     private List<Climb> climbs = new ArrayList<>();
 
     public Workout() {
@@ -98,14 +98,13 @@ public class Workout {
         return "Workout [workoutid=" + workoutid + ", date=" + date + ", location=" + location + ", place=" + place + ", notes=" + notes + "]";
     }
 
-/*   public AppUser getUser() {
+    public AppUser getUser() {
         return user;
     }
 
     public void setUser(AppUser user) {
         this.user = user;
     }
-*/
 
     public List<Climb> getClimbs() {
         return climbs;

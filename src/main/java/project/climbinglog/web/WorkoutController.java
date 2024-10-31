@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import project.climbinglog.domain.ClimbRepository;
 import project.climbinglog.domain.Workout;
 import project.climbinglog.domain.WorkoutRepository;
 
@@ -15,18 +14,21 @@ import project.climbinglog.domain.WorkoutRepository;
 public class WorkoutController {
 
     @Autowired
-    private WorkoutRepository reposWorkout;
-    @Autowired
-    private ClimbRepository reposClimb;
+    private WorkoutRepository workoutRepo;
 
     @RequestMapping("/home")
     public String index() {
         return "home";
     }
 
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
     @GetMapping("/workouts")
     public String showAllWorkouts(Model model) {
-        model.addAttribute("workouts", reposWorkout.findAll());
+        model.addAttribute("workouts", workoutRepo.findAll());
         return "workouts";
     }
 
@@ -38,13 +40,8 @@ public class WorkoutController {
 
     @PostMapping("/saveworkout")
     public String saveWorkout(Workout workout) {
-        reposWorkout.save(workout);
+        workoutRepo.save(workout);
         return "redirect:/workouts";
-    }
-
-    @RequestMapping("/login")
-    public String login() {
-        return "login";
     }
 
 }
