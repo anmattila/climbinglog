@@ -44,6 +44,7 @@ public class Workout {
     @ManyToOne 
     @JsonIgnoreProperties("workouts")
     @JoinColumn(name = "userid") 
+    //@NotNull
     private AppUser user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "workout")
@@ -53,12 +54,13 @@ public class Workout {
     public Workout() {
     }
 
-    public Workout(LocalDate date, String location, String place, String notes) {
+    public Workout(LocalDate date, String location, String place, String notes, AppUser user) {
         super();
         this.date = date;
         this.location = location;
         this.place = place;
         this.notes = notes;
+        this.user = user;
     }
 
     public Long getWorkoutid() {
@@ -103,7 +105,8 @@ public class Workout {
 
     @Override
     public String toString() {
-        return "Workout [workoutid=" + workoutid + ", date=" + date + ", location=" + location + ", place=" + place + ", notes=" + notes + "]";
+        return "Workout [date=" + date + ", location=" + location + ", place=" + place + ", notes=" + notes + ", user="
+                + user + "]";
     }
 
     public AppUser getUser() {

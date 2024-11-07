@@ -5,7 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
-//import jakarta.persistence.Column;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,13 +18,13 @@ public class AppUser {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 
-   // @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private Long id;
 
-    //@Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String username;
 
-    //@Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String passwordHash;
     
     private String role;

@@ -1,7 +1,5 @@
 package project.climbinglog.web;
 
-import javax.naming.Binding;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,26 +62,15 @@ public class WorkoutController {
         }
     }
 
-    // public String saveNewWorkout(Workout workout) {
-    // workoutRepo.save(workout);
-    // return "redirect:/details/" + workout.getWorkoutid();
-    // }
-
     @PostMapping("/saveedit")
-    public String saveEditedWorkout(Workout workout) {
-        workoutRepo.save(workout);
-        return "redirect:/details/" + workout.getWorkoutid();
+    public String saveEditedWorkout(@Valid Workout workout, BindingResult bindingResult ) {
+        // if (bindingResult.hasErrors()) {
+        //     return "editworkout";
+        // } else {
+        //     workoutRepo.save(workout);
+        //     return "redirect:/details/" + workout.getWorkoutid();
+        // }
+            workoutRepo.save(workout);
+            return "redirect:/details/" + workout.getWorkoutid();
     }
-
-    // // saving tilalle?
-    // @PostMapping("/addworkout")
-    // public String checkWorkoutSubmit(@Valid @ModelAttribute("workout") Workout
-    // workout, BindingResult bindingResult, Model model) {
-    // if (bindingResult.hasErrors()) {
-    // return "addworkout";
-    // } else {
-    // model.addAttribute("workout", workout);
-    // return "redirect:/details/" + workout.getWorkoutid();
-    // }
-    // }
 }
