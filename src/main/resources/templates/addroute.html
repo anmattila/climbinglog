@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add route to workout</title>
+</head>
+
+<body>
+
+    <h3>Add new route</h3>
+    <div>
+        <form th:action="@{/details/{id}/saveroute(id=${workout.workoutid})}" th:object="${route}" action="#"
+            method="post">
+            <input type="hidden" th:value="${workoutid}" name="workoutid" />
+
+            <!-- *type sitoo type to route, loop enum, shows values and text -->
+            <label for="type">Type</label>
+            <select id="type" th:field="*{type}" class="form-control">
+                <!-- <option value="">Select type</option> -->
+                <option th:each="type : ${types}" th:value="${type}" th:text="${type}">
+                </option>
+            </select>
+
+            <br>
+            <label for="grade">Grade</label>
+            <input type="text" id="grade" th:field="*{grade}" required />
+            <br>
+            <label for="notes">Notes</label>
+            <textarea id="notes" th:field="*{notes}" rows="4"></textarea>
+            <br>
+            <input type="submit" value="Add new route" />
+        </form>
+    </div>
+
+</body>
+
+</html>

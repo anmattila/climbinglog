@@ -10,40 +10,45 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+import jakarta.validation.constraints.NotNull;
+
+
 @Entity
-public class Climb {
+public class Route {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
-    @Column(name = "climbid", unique = true)
-    private Long climbid;
+    
+    @Column(name = "routeid", unique = true)
+    private Long routeid;
+    @NotNull
     private Type type;
     private String grade;
+    //private int attempts;
     private String notes;
 
     @ManyToOne
-    @JsonIgnoreProperties("climb")
+    @JsonIgnoreProperties("route")
     @JoinColumn(name = "workoutid")
-    // nullable = false saa kaatumaan
+    @NotNull
     private Workout workout;
 
-    public Climb() {
+    public Route() {
     }
 
-    public Climb(Type type, String grade, String notes) {
+    public Route(Type type, String grade, String notes) {
         super();
         this.type = type;
         this.grade = grade;
         this.notes = notes;
     }
 
-    public void setClimbid(Long climbid) {
-        this.climbid = climbid;
+    public Long getRouteid() {
+        return routeid;
     }
 
-    public Long getClimbid() {
-        return climbid;
+    public void setRouteid(Long routeid) {
+        this.routeid = routeid;
     }
 
     public Type getType() {
@@ -72,7 +77,7 @@ public class Climb {
 
     @Override
     public String toString() {
-        return "Climb [climbid=" + climbid + ", type=" + type + ", grade=" + grade + ", notes=" + notes + "]";
+        return "Route [routeid=" + routeid + ", type=" + type + ", grade=" + grade + ", notes=" + notes + "]";
     }
 
     public Workout getWorkout() {

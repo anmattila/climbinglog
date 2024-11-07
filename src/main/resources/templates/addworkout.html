@@ -1,62 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <title>Add workout</title>
 </head>
 
 <body>
-    <header>
-        <div th:replace="fragments/materialize :: navbar"></div>
-    </header>
+
     <h3>Add new workout</h3>
 
-    <!-- <div class="container"> -->
-    <div class="row">
-        <form class="col s12 m6 offset-m3 l5 offset-l3" th:object="${workout}" th:action="@{/saveworkout}" action="#"
-            method="post">
+    <form th:object="${workout}" th:action="@{/saveworkout}" action="#" method="post">
 
-            <div class="row">
-                <div class="input-field">
-                    <label for="date">Date</label>
-                    <input placeholder=" " type="date" id="date" th:field="*{date}" required />
-                    <!-- th:value="${#dates.format(date, 'dd.MM.yyyy')}" -->
-                </div>
-            </div>
+        <tr>
+            <label for="date">Date</label>
+            <input placeholder="dd.MM.yyyy" type="date" id="date" th:field="*{date}" class="form-control" />
+            <td th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date error</td>
+        </tr>
+        <br>
+        <label for="location">Location</label>
+        <input type="text" id="location" th:field="*{location}" placeholder="Where you climbed?" />
+        <td th:if="${#fields.hasErrors('location')}" th:errors="*{location}">Location error</td>
 
-            <div class="row">
-                <div class="input-field dd.mm.yyyy">
-                    <label for="location">Location</label>
-                    <input placeholder="Where you climbed?" type="text" id="location" th:field="*{location}" required />
-                </div>
-            </div>
-        <!-- 
-            <div class="row">
-                <select class="browser-default" id="place" th:field="*{place}">
-                    <option value="" disabled selected>Was it indoors or outdoors?</option>
-                    <option value="1">Indoors</option>
-                    <option value="2">Outdoors</option>
-                </select>
-            </div>
-        -->
-
-            <div class="row">
-                <div class="input-field">
-                    <label for="notes">Notes</label>
-                    <textarea placeholder="Want to remember something?" id="notes" th:field="*{notes}"
-                        class="materialize-textarea"></textarea>
-                </div>
-            </div>
-
-            <input type="submit" value="Add new workout" />
-    </div>
+            <br>
+        <label for="place">Indoors or outdoors?</label>
+        <select id="place" th:field="*{place}">
+            <option value="indoors">Indoors</option>
+            <option value="outdoors">Outdoors</option>
+        </select>
+            <br>
+        <label for="notes">Notes</label>
+        <textarea id="notes" th:field="*{notes}" placeholder="Want to remember something?"></textarea>
+            <br>      
+        <input type="submit" value="Add new workout" />
     </form>
-    </div>
 
 </body>
 

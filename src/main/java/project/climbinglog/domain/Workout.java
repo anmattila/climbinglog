@@ -17,16 +17,25 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+
 @Entity
 public class Workout {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
 
     @Column(unique = true)
     private Long workoutid;
+
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @Column(name = "date")
+    @NotNull(message = "Select day")
     private LocalDate date;
+
+    @Size(min=3, max=30, message = "Write location")
     private String location;
     private String place;
     private String notes;
@@ -37,10 +46,9 @@ public class Workout {
     @JoinColumn(name = "userid") 
     private AppUser user;
 
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "workout")
     @JsonIgnoreProperties("workout")
-    private List<Climb> climbs = new ArrayList<>();
+    private List<Route> routes = new ArrayList<>();
 
     public Workout() {
     }
@@ -106,19 +114,19 @@ public class Workout {
         this.user = user;
     }
 
-    public List<Climb> getClimbs() {
-        return climbs;
+    public List<Route> getRoutes() {
+        return routes;
     }
 
-    public void setClimbs(List<Climb> climbs) {
-        this.climbs = climbs;
+    public void setRoutes(List<Route> routes) {
+        this.routes = routes;
     }
 
-    // varmistaa että kiipeily lisätään treenissä olevaan listaan kiipeilystä 
-    // ja kiipeily tietää mihin treeniin se kuuluu
-    public void addClimb(Climb climb) {
-        climbs.add(climb);              
-        climb.setWorkout(this); 
+    // varmistaa että kiipeilty reitti lisätään treenissä olevaan listaan kiipeilystä 
+    // ja reitti tietää mihin treeniin se kuuluu
+    public void addRoute(Route route) {
+        routes.add(route);              
+        route.setWorkout(this); 
 
     } 
 }

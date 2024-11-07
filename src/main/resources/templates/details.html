@@ -4,43 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <title>Workout details</title>
+
+    <title>My workout details</title>
+    <!-- user can see only their own -->
 </head>
 
 <body>
-    <header>
-        <div th:replace="fragments/materialize :: navbar"></div>
-    </header>
+
     <div class="container">
+        <br>
+        <td> <a href="/workouts">Back to workouts</a></td> <br>
 
-        <h2>Workout</h2>
-        <p>Date: <span th:text="${workout.date}">Date of workout</span></p>
-        <p>Location: <span th:text="${workout.location}"></span></p>
+        <h3>Workout</h3>
+        <p>Date: <span th:text="${#temporals.format(workout.date, 'dd.MM.yyyy')}">Date of workout</span></p>
+        <p>Location: <span th:text="${workout.location}"></span>, <span th:text="${workout.place}"></span></p>
         <p>Notes: <span th:text="${workout.notes}"></span></p>
-        
-        <td><a th:href="@{/details/{workoutid}/addclimb(workoutid=${workout.workoutid})}">Add new climb</a></td>
+        <td> <a th:href="@{/edit/{id}(id=${workout.workoutid})}">Edit</a></td> <br>
+        <td> <a th:href="@{/delete/{id}(id=${workout.workoutid})}">Delete this workout</a></td> <br>
+        <td> <a th:href="@{/details/{id}/addroute(id=${workout.workoutid})}">Add new climbed route</a></td>
 
-        <h3>Individual climbs</h3>
+        <h3>Individual routes </h3>
         <div class="row">
-        <div class="col s12">
-            <table class="highlight">
-                <tr>
-                    <th>Type</th>
-                    <th>Grade</th>
-                    <th>Notes</th>
-                </tr>
-                <tr th:each="climb : ${climbs}">
-                    <td th:text="${climb.type}"></td>
-                    <td th:text="${climb.grade}"></td>
-                    <td th:text="${climb.notes}"></td>
-                </tr>
-            </table>
-        <a href="/workouts">Back to workouts</a></td>
+                <table>
+                    <tr>
+                        <th>Type</th>
+                        <th>Grade</th>
+                        <th>Notes</th>
+                    </tr>
+                    <tr th:each="route : ${routes}">
+                        <td th:text="${route.type}"></td>
+                        <td th:text="${route.grade}"></td>
+                        <td th:text="${route.notes}"></td>
+                        <td> <a th:href="@{/details/delete/{id}(id=${route.routeid})}">Delete</a></td>
+                    </tr>
+                </table>
         </div>
-    </div>
     </div>
 
 </body>

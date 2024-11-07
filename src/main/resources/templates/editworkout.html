@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add workout</title>
+</head>
+
+<body>
+
+    <h3>Edit workout</h3>
+
+    <form th:object="${workout}" th:action="@{/saveedit}" action="#" method="post">
+        <input type="hidden" th:field="*{workoutid}" />
+
+        <label for="date">Date</label>
+        <input placeholder="dd.MM.yyyy" type="date" id="date" class="form-control" required th:field="*{date}" />
+        <br>
+
+        <label for="location">Location</label>
+        <input placeholder="Where you climbed?" type="text" id="location" th:field="*{location}" required />
+        <br>
+
+        <label for="place">Indoors or outdoors?</label>
+        <select id="place" th:field="*{place}">
+            <option value="" selected></option>
+            <option value="indoors">Indoors</option>
+            <option value="outdoors">Outdoors</option>
+        </select>
+        <br>
+
+        <label for="notes">Notes</label>
+        <textarea placeholder="Want to remember something?" id="notes" th:field="*{notes}"></textarea>
+        <br>
+
+        <input type="submit" value="Save" />
+    </form>
+
+</body>
+
+</html>
