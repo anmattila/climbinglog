@@ -1,6 +1,9 @@
 package project.climbinglog.web;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,16 +25,23 @@ public class RouteController {
     private RouteRepository routeRepo;
 
     @GetMapping("/details/{workoutid}")
-    public String showWorkoutDetails(@PathVariable("workoutid") Long workoutid, Model model) {
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
+    public String showWorkoutDetails(@PathVariable("workoutid") Long workoutid, Model model, Principal principal) {
         Workout workout = workoutRepo.findById(workoutid)
-                .orElseThrow(() -> new IllegalArgumentException());
-        model.addAttribute("workout", workout);
-        model.addAttribute("routes", workout.getRoutes());
-        return "details";
+        .orElseThrow(() -> new IllegalArgumentException());
+        String username = principal.getName();
+        if (!workout.getUser().getUsername().equals(username)) {
+            return "redirect:/error";
+        } else {
+            model.addAttribute("workout", workout);
+            model.addAttribute("routes", workout.getRoutes());
+            return "details";
+        }
     }
 
-    // add climb to spesific workout
+    // add climbed route to spesific workout
     @GetMapping("/details/{workoutid}/addroute")
+    @PreAuthorize("hasAuthority('USER')")
     public String addRouteToWorkout(@PathVariable("workoutid") Long workoutid, Model model) {
         Workout workout = workoutRepo.findById(workoutid)
                 .orElseThrow(() -> new IllegalArgumentException());
@@ -42,15 +52,22 @@ public class RouteController {
     }
 
     @PostMapping("/details/{workoutid}/saveroute")
-    public String saveRouteToWorkout(@PathVariable("workoutid") Long workoutid, Route route) {
+    @PreAuthorize("hasAuthority('USER')")
+    public String saveRouteToWorkout(@PathVariable("workoutid") Long workoutid, Route route, Principal principal) {
         Workout workout = workoutRepo.findById(workoutid)
-                .orElseThrow(() -> new IllegalArgumentException());
-        route.setWorkout(workout);
-        routeRepo.save(route);
-        return "redirect:/details/" + workout.getWorkoutid();
+            .orElseThrow(() -> new IllegalArgumentException());
+        String username = principal.getName();
+        if (!workout.getUser().getUsername().equals(username)) {
+            return "redirect:/error";
+        } else {
+            route.setWorkout(workout);
+            routeRepo.save(route);
+            return "redirect:/details/" + workout.getWorkoutid();
+        }
     }
 
     @GetMapping("/details/delete/{routeid}")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public String deleteRoute(@PathVariable("routeid") Long routeid, Model model) {
         Route route = routeRepo.findById(routeid).get();
         Workout workout = route.getWorkout();

@@ -12,20 +12,18 @@ import jakarta.persistence.ManyToOne;
 
 import jakarta.validation.constraints.NotNull;
 
-
 @Entity
 public class Route {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    
+
     @Column(name = "routeid", unique = true)
     private Long routeid;
     @NotNull
     private Type type;
     private String grade;
-    //private int attempts;
-    private String notes;
+    private int attempts;
 
     @ManyToOne
     @JsonIgnoreProperties("route")
@@ -36,11 +34,11 @@ public class Route {
     public Route() {
     }
 
-    public Route(Type type, String grade, String notes) {
+    public Route(Type type, String grade, int attempts) {
         super();
         this.type = type;
         this.grade = grade;
-        this.notes = notes;
+        this.attempts = attempts;
     }
 
     public Long getRouteid() {
@@ -67,17 +65,17 @@ public class Route {
         this.grade = grade;
     }
 
-    public String getNotes() {
-        return notes;
+    public int getAttempts() {
+        return attempts;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setAttempts(int attempts) {
+        this.attempts = attempts;
     }
 
     @Override
     public String toString() {
-        return "Route [routeid=" + routeid + ", type=" + type + ", grade=" + grade + ", notes=" + notes + "]";
+        return "Route [routeid=" + routeid + ", type=" + type + ", grade=" + grade + ", attempts=" + attempts + "]";
     }
 
     public Workout getWorkout() {

@@ -31,8 +31,8 @@ public class ClimbinglogApplication {
 			AppUserRepository userRepo) {
 		return (args) -> {
 
-			AppUser user1 = new AppUser("user1", "$2a$15$xKGLDF1C4VBc8RyXk86kr.z1AXzFraty3yxAPFjWLapEg5KmTjwpy", "USER");
-			AppUser user2 = new AppUser("user2", "$2a$15$6MvQRT7mLUnONK08rkXzXeH1QB7ePTF4vvziggn.ehQUInVgffa4W", "USER");
+			AppUser user1 = new AppUser("climber1", "$2a$15$xKGLDF1C4VBc8RyXk86kr.z1AXzFraty3yxAPFjWLapEg5KmTjwpy", "USER");
+			AppUser user2 = new AppUser("ilovecats", "$2a$15$6MvQRT7mLUnONK08rkXzXeH1QB7ePTF4vvziggn.ehQUInVgffa4W", "USER");
 			AppUser admin = new AppUser("admin", "$2a$15$gZ9MzbkWtzpmyE24GwHw2O3RfP.FnkQrlUPzKx2EMkNcS/slQ54hi", "ADMIN");
 			userRepo.save(user1);
 			userRepo.save(user2);
@@ -44,16 +44,16 @@ public class ClimbinglogApplication {
 			Workout demoW4 = new Workout(LocalDate.of(2024, 3, 10), "Ristikko", "indoors", "ok", user2);
 			Workout demoW5 = new Workout(LocalDate.of(2024, 05, 10), "Ristikko", "indoors", "was fine", user2);
 
-			Route demoR1 = new Route(Type.BOULDER, "5", "good warm-up");
-			Route demoR2 = new Route(Type.BOULDER, "7A", "need to work");
-			Route demoR3 = new Route(Type.TOP_ROPE, "6+", "");
-			Route demoR4 = new Route(Type.TOP_ROPE, "6+", "");
-			Route demoR5 = new Route(Type.TOP_ROPE, "5+", "");
-			Route demoR6 = new Route(Type.TOP_ROPE, "6-", "");
-			Route demoR7 = new Route(Type.TOP_ROPE, "7A", "");
-			Route demoR8 = new Route(Type.TOP_ROPE, "7A", "");
-			Route demoR9 = new Route(Type.TOP_ROPE, "6+", "");
-			Route demoR10 = new Route(Type.TOP_ROPE, "5", "");
+			Route demoR1 = new Route(Type.BOULDER, "5", 1);
+			Route demoR2 = new Route(Type.BOULDER, "7A", 2);
+			Route demoR3 = new Route(Type.TOP_ROPE, "6+", 1);
+			Route demoR4 = new Route(Type.TOP_ROPE, "6+", 3);
+			Route demoR5 = new Route(Type.TOP_ROPE, "5+", 2);
+			Route demoR6 = new Route(Type.TOP_ROPE, "6-", 2);
+			Route demoR7 = new Route(Type.TOP_ROPE, "7A", 4);
+			Route demoR8 = new Route(Type.TOP_ROPE, "7A", 4);
+			Route demoR9 = new Route(Type.TOP_ROPE, "6+", 1);
+			Route demoR10 = new Route(Type.TOP_ROPE, "5", 1);
 
 			demoW1.addRoute(demoR1);
 			demoW1.addRoute(demoR2);

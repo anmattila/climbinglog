@@ -1,19 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>My workout details</title>
     <!-- user can see only their own -->
 </head>
 
 <body>
-
-    <div class="container">
-        <br>
-        <td> <a href="/workouts">Back to workouts</a></td> <br>
+    <td> <a href="/workouts">Back to workouts</a></td> <br>
 
         <h3>Workout</h3>
         <p>Date: <span th:text="${#temporals.format(workout.date, 'dd.MM.yyyy')}">Date of workout</span></p>
@@ -24,23 +21,27 @@
         <td> <a th:href="@{/details/{id}/addroute(id=${workout.workoutid})}">Add new climbed route</a></td>
 
         <h3>Individual routes </h3>
-        <div class="row">
-                <table>
-                    <tr>
-                        <th>Type</th>
-                        <th>Grade</th>
-                        <th>Notes</th>
-                    </tr>
-                    <tr th:each="route : ${routes}">
-                        <td th:text="${route.type}"></td>
-                        <td th:text="${route.grade}"></td>
-                        <td th:text="${route.notes}"></td>
-                        <td> <a th:href="@{/details/delete/{id}(id=${route.routeid})}">Delete</a></td>
-                    </tr>
-                </table>
-        </div>
-    </div>
+        <table>
+            <tr>
+                <th>Type</th>
+                <th>Grade</th>
+                <th>attempts</th>
+            </tr>
+            <tr th:each="route : ${routes}">
+                <td th:text="${route.type}"></td>
+                <td th:text="${route.grade}"></td>
+                <td th:text="${route.attempts}"></td>
+                <td> <a th:href="@{/details/delete/{id}(id=${route.routeid})}">Delete</a></td>
+            </tr>
+        <!-- tämä toimi kun vain admin
+                <td sec:authorize="hasAuthority('ADMIN')"> <a
+                    th:href="@{/details/{id}(id=${workout.workoutid})}">Details</a>
+                </td>
+            
+            -->
 
+        </table>
+    </td>
 </body>
 
 </html>

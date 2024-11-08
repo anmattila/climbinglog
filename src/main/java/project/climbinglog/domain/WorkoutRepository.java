@@ -6,5 +6,6 @@ import java.util.List;
 public interface WorkoutRepository extends CrudRepository<Workout, Long>{
 
     List<Workout> findByWorkoutid(Long workoutid);
+    List<Workout> findByUser(AppUser user);
 
 }

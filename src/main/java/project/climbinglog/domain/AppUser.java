@@ -81,6 +81,7 @@ public class AppUser {
         return "User [id=" + id + ", username=" + username + ", passwordHash=" + passwordHash
                 + ", role=" + role + "]";
     }
+    
     public List<Workout> getWorkouts() {
         return workouts;
     }

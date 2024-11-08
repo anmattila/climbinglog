@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org"       
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,8 +27,8 @@
             <label for="grade">Grade</label>
             <input type="text" id="grade" th:field="*{grade}" required />
             <br>
-            <label for="notes">Notes</label>
-            <textarea id="notes" th:field="*{notes}" rows="4"></textarea>
+            <label for="attempts">Number of attempts</label>
+            <input type="text" id="attempts" th:field="*{attempts}" />
             <br>
             <input type="submit" value="Add new route" />
         </form>
