@@ -32,16 +32,16 @@ public class WebSecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/workouts").permitAll()
+                        .requestMatchers("/index", "/workouts", "/users/***").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(formlogin -> formlogin
-                        .defaultSuccessUrl("/workouts", true)
+                        .defaultSuccessUrl("/index", true)
                         .permitAll()
                         .loginPage("/login").permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/workouts")
+                        .logoutSuccessUrl("/index")
                         .clearAuthentication(true)
                         .permitAll()
                         );

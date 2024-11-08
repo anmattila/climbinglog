@@ -14,18 +14,17 @@
         <ul>
             <th: sec:authorize="!isAuthenticated()">
                 <a href="/login">Log in</a>
-                <h2>Hello Guest!</h2>
+                <h1>Hello Guest, welcome to climbing log!</h1>
         </ul>
         <ul>
             <th sec:authorize="isAuthenticated">
                 <form th:action="@{/logout}" method="post">
                     <input type="submit" value="Log Out" />
                 </form>
-                <h2>Hello <span sec:authentication="name"></span>!</h2>
+                <h2>Hello <span sec:authentication="name"></span>, welcome to climbing log!</h2>
                 <a href="/addworkout">Add new workout</a>
         </ul>
     </nav>
-
     <table>
         <tr>
             <th>User</th>
