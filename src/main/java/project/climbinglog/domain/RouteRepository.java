@@ -5,5 +5,6 @@ import java.util.List;
 
 public interface RouteRepository extends CrudRepository<Route, Long> {
 
-    List<Route> findByRouteid(Long routeid);
+    List<Route> findByRouteId(Long routeid);
+    List<Route> findAllByWorkoutid(Long workoutid);
 }
