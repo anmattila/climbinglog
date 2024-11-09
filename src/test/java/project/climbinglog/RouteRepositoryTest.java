@@ -1,4 +1,5 @@
 package project.climbinglog;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
@@ -23,11 +24,11 @@ public class RouteRepositoryTest {
 
     @Autowired
     private AppUserRepository userRepo;
-    @Autowired 
+    @Autowired
     private WorkoutRepository workoutRepo;
     @Autowired
     private RouteRepository routeRepo;
-    
+
     private Workout workout;
     private Route route;
 
@@ -58,13 +59,24 @@ public class RouteRepositoryTest {
         routeRepo.deleteById(route.getRouteid());
         assertThat(routeRepo.findById(route.getRouteid())).isEmpty();
     }
-    
+
     @Test
-    public void findAllRoutesByWorkout(AppUser testuser2) {
-        workout = new Workout(LocalDate.of(2024, 02, 02), "Pasila", "indoors", "good", testuser2);
-        Long workoutid = (long) 1;
-        List<Route> routes = routeRepo.findAllByWorkoutid(workoutid);
-        assertThat(routes).isNotNull();
+    public void findAllRoutesByWorkout() {
+        AppUser testuser2 = new AppUser("name2", "word2", "USER");
+        userRepo.save(testuser2);
+        Workout tesworkout = new Workout(LocalDate.of(2024, 02, 02), "Pasila", "indoors", "good", testuser2);
+        Route testroute = new Route(Type.ROCK, "7", 3);
+        tesworkout.addRoute(testroute);
+        workoutRepo.save(tesworkout);
+
+        List<Route> routes = routeRepo.findAllByWorkoutWorkoutid(workout.getWorkoutid());
+        List<Route> routes2 = routeRepo.findAllByWorkoutWorkoutid(tesworkout.getWorkoutid());
+        assertThat(routes).hasSize(1);
+        assertThat(routes2).hasSize(1);
+        assertThat(routes.get(0).getGrade()).isEqualTo("6");
+        assertThat(routes2.get(0).getGrade()).isEqualTo("7");
     }
+    // viimeinen on tehty täysin chatgpt:n kanssa, jäin jumiin haun logiikan kanssa
+    // ja loppui aika järkeillä se itse loppuun
 
 }
