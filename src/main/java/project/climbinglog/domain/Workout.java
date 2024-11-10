@@ -40,11 +40,10 @@ public class Workout {
     private String place;
     private String notes;
 
-    // 1 workout has only 1 user, userid foreign key
+    // 1 workout has only 1 user
     @ManyToOne 
     @JsonIgnoreProperties("workouts")
     @JoinColumn(name = "userid") 
-    //@NotNull
     private AppUser user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "workout")

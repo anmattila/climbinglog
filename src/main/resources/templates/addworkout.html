@@ -4,38 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
     <title>Add workout</title>
 </head>
 
 <body>
+    <div class="container col-md-4">
+        <td> <a href="/home" class="btn btn-outline-secondary" style="margin-top: 20px;">Back to workouts</a></td> <br>
+        <h3 style="margin-top: 30px;">Add new workout</h3>
 
-    <h3>Add new workout</h3>
-
-    <form th:object="${workout}" th:action="@{/saveworkout}" action="#" method="post">
-
-        <tr>
-            <label for="date">Date</label>
-            <input placeholder="dd.MM.yyyy" type="date" id="date" th:field="*{date}" class="form-control" />
-            <td th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date error</td>
-        </tr>
-        <br>
-        <label for="location">Location</label>
-        <input type="text" id="location" th:field="*{location}" placeholder="Where you climbed?" />
-        <td th:if="${#fields.hasErrors('location')}" th:errors="*{location}">Location error</td>
+        <form th:object="${workout}" th:action="@{/saveworkout}" action="#" method="post">
+            <tr>
+                <label for="date">Date</label>
+                <input placeholder="dd.MM.yyyy" type="date" id="date" th:field="*{date}" class="form-control" />
+                <td th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date error</td>
+            </tr>
+            <br>
+            <label for="location">Location</label>
+            <input type="text" id="location" th:field="*{location}" placeholder="Where you climbed?" />
+            <td th:if="${#fields.hasErrors('location')}" th:errors="*{location}">Location error</td>
 
             <br>
-        <label for="place">Indoors or outdoors?</label>
-        <select id="place" th:field="*{place}">
-            <option value="indoors">Indoors</option>
-            <option value="outdoors">Outdoors</option>
-        </select>
+            <label for="place">Indoors or outdoors?</label>
+            <select id="place" th:field="*{place}">
+                <option value="">Select</option>
+                <option value="indoors">Indoors</option>
+                <option value="outdoors">Outdoors</option>
+            </select>
             <br>
-        <label for="notes">Notes</label>
-        <textarea id="notes" th:field="*{notes}" placeholder="Want to remember something?"></textarea>
-            <br>      
-        <input type="submit" value="Add new workout" />
-    </form>
-
+            <label for="notes">Notes</label>
+            <textarea id="notes" th:field="*{notes}" placeholder="Want to remember something?"></textarea>
+            <br>
+            <input type="submit" value="Add new workout" />
+        </form>
+    </div>
 </body>
 
 </html>

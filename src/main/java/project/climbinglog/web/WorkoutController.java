@@ -43,7 +43,7 @@ public class WorkoutController {
             return "redirect:/error";
         } else {
             workoutRepo.deleteById(workoutid);
-            return "redirect:/workouts";
+            return "redirect:/home";
         }
     }
 
@@ -56,7 +56,6 @@ public class WorkoutController {
         if (!workout.getUser().getUsername().equals(username)) {
             return "redirect:/error";
         } else {
-            // model.addAttribute("workout", workoutRepo.findById(workoutid));
             model.addAttribute("workout", workout);
             return "editworkout";
         }

@@ -37,14 +37,14 @@ public class LogController implements ErrorController {
         return "login";
     }
 
-    @GetMapping("/index")
+    @GetMapping("/home")
     public String showAllWorkouts(Model model, Principal principal) {
         if (principal != null) {
             String username = principal.getName();
             model.addAttribute("username", username);
         }
         model.addAttribute("workouts", workoutRepo.findAll());
-        return "workouts";
+        return "home";
     }
 
     // rest-haku, tulostaa json-muodossa workout-oliot ja siihen kuuluvat käyttäjät ja reitit
