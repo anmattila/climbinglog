@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,6 +50,7 @@ public class LogController implements ErrorController {
 
     // rest-haku, tulostaa json-muodossa workout-oliot ja siihen kuuluvat käyttäjät ja reitit
     @RequestMapping("workouts")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public @ResponseBody List<Workout> getWorkoutRest() {
         List<Workout> workouts = (List<Workout>) workoutRepo.findAll();
         return workouts;
@@ -56,6 +58,7 @@ public class LogController implements ErrorController {
 
     // rest haku käyttäjän kautta
     @GetMapping("/users/{userid}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public @ResponseBody Optional<AppUser> findAppUserRest(@PathVariable("userid") Long userid) {
         return userRepo.findById(userid);
     }
